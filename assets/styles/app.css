@@ -1,0 +1,32 @@
+li {
+  transition: all 0.2s;
+}
+
+.dragged {
+  opacity: 0.5;
+}
+
+.target:not(:has(button)):not(.dragged):not(:has(+ .dragged)) {
+  padding-bottom: 1.8rem;
+  background-color: var(--shadeThree);
+}
+
+.dragged.target {
+  padding-bottom: 0.8rem;
+  background-color: var(--mainColor);
+}
+
+.target:not(.dragged):not(:has(+ li.dragged)) > input {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.target:not(.dragged) + li:not(.dragged) > input {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.target:not(.dragged) + li:not(.dragged) > button {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}

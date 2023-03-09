@@ -1,0 +1,160 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --tint-4: hsl(168, 100%, 52%);
+  --tint-3: hsl(168, 100%, 47%);
+  --tint-2: hsl(168, 100%, 38%);
+  --tint-1: hsl(168, 100%, 32%);
+  --mainColor: hsl(168, 100%, 29%);
+  --shadeOne: hsl(168, 100%, 26%);
+  --shadeTwo: hsl(168, 100%, 23%);
+  --shadeThree: hsl(168, 100%, 17%);
+  --shadeFour: hsl(168, 100%, 12%);
+
+  --textColor: white;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1;
+  color: var(--textColor);
+  position: relative;
+  background-color: var(--mainColor);
+
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+}
+
+main {
+  overflow: auto;
+  width: 100vw;
+}
+
+/*  */
+
+#invisible {
+  display: none;
+}
+
+/*  */
+
+main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 2rem;
+  gap: 2rem;
+  background-color: var(--mainColor);
+  border-radius: 7px;
+  margin: 0 1rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  font-size: 2.4rem;
+  font-weight: 400;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 4px;
+  padding-bottom: 0.8rem;
+}
+
+#first-li {
+  height: 2rem;
+  width: 100%;
+}
+
+.task-input,
+.add-task-btn {
+  height: 2.8rem;
+  border-radius: 4px;
+  border: none;
+  font-family: inherit;
+}
+
+.task-input {
+  width: 100%;
+  padding: 0 6.8rem 0 1.2rem;
+  background-color: #fff;
+  color: black;
+}
+
+.edit-task-icon,
+.delete-task-icon,
+.up-down-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: black;
+  position: absolute;
+  cursor: pointer;
+}
+
+.up-down-icon {
+  display: none;
+  right: 32px;
+}
+
+.delete-task-icon {
+  right: 10px;
+}
+
+.edit-task-icon {
+  right: 40px;
+}
+
+.add-task-btn {
+  transition: all 0.3s;
+  color: var(--textColor);
+  font-weight: 400;
+  background-color: var(--shadeTwo);
+}
+
+.add-task-btn:hover {
+  background-color: var(--shadeThree);
+  cursor: pointer;
+}
+
+#color-picker {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* query */
+
+@media (max-width: 43.75em) {
+  html {
+    font-size: 50%;
+  }
+  main {
+    grid-template-columns: 1fr;
+    height: 100%;
+  }
+  .edit-task-icon {
+    display: none;
+  }
+  .up-down-icon {
+    display: block;
+  }
+}

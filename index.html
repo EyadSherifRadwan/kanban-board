@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kanban Board</title>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="assets/styles/app.css" />
+    <link rel="stylesheet" href="assets/styles/style.css" />
+
+    <script src="assets/scripts/vendor.js" defer></script>
+    <script src="assets/scripts/app.js" defer></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"
+    />
+  </head>
+  <body>
+    <main class="main-main"></main>
+    <script>
+      if (window.localStorage.getItem('mainInnerHTML')) {
+        document.body.innerHTML = `
+        <div id="color-picker">
+          <div class="color-picker"></div>
+        </div>
+
+        <main></main>
+        `;
+        document.querySelector('main').innerHTML =
+          window.localStorage.getItem('mainInnerHTML');
+      } else {
+        document.body.innerHTML = `
+        <div id="color-picker">
+          <div class="color-picker"></div>
+        </div>
+          
+        <main>
+          <div class="column">
+            <h2>Not Started</h2>
+            <ul id="not-started-tasks-list">
+              <li id="first-li"></li>
+              <li>
+                <button id="add-not-startded-task" class="add-task-btn">
+                  + Add
+                  </button>
+                </li>
+            </ul>
+          </div>
+          <div class="column">
+            <h2>In Progress</h2>
+            <ul id="in-progress-tasks-list">
+              <li id="first-li"></li>
+              <li>
+                <button id="add-in-progress-task" class="add-task-btn">
+                  + Add
+                  </button>
+              </li>
+            </ul>
+            </div>
+            <div class="column">
+              <h2>Completed</h2>
+              <ul id="in-completed-list">
+                <li id="first-li"></li>
+                <li>
+                  <button id="add-completed-task" class="add-task-btn">+ Add</button>
+                </li>
+              </ul>
+            </div>
+          </main>
+                      `;
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+
+    <script>
+      const pickr = Pickr.create({
+        el: '.color-picker',
+        theme: 'nano', // or 'monolith', or 'nano'
+
+        swatches: [
+          'rgba(244, 67, 54, 1)',
+          'rgba(233, 30, 99, 0.95)',
+          'rgba(156, 39, 176, 0.9)',
+          'rgba(103, 58, 183, 0.85)',
+          'rgba(63, 81, 181, 0.8)',
+          'rgba(33, 150, 243, 0.75)',
+          'rgba(3, 169, 244, 0.7)',
+          'rgba(0, 188, 212, 0.7)',
+          'rgba(0, 150, 136, 0.75)',
+          'rgba(76, 175, 80, 0.8)',
+          'rgba(139, 195, 74, 0.85)',
+          'rgba(205, 220, 57, 0.9)',
+          'rgba(255, 235, 59, 0.95)',
+          'rgba(255, 193, 7, 1)',
+        ],
+
+        components: {
+          // Main components
+          preview: true,
+          opacity: true,
+          hue: true,
+
+          // Input / output Options
+          interaction: {
+            hex: false,
+            rgba: false,
+            hsla: false,
+            hsva: false,
+            cmyk: false,
+            input: true,
+            clear: false,
+            save: true,
+          },
+        },
+      });
+
+      pickr.on('change', (...args) => {
+        const currentColor = args[0].toHSLA();
+        const shadeOne = args[0].toHSLA();
+        const shadeTwo = args[0].toHSLA();
+        const shadeThree = args[0].toHSLA();
+        const textColor = args[0].toHSLA();
+        shadeOne.splice(2, 1, currentColor[2] - 3);
+        shadeTwo.splice(2, 1, currentColor[2] - 6);
+        shadeThree.splice(2, 1, currentColor[2] - 9);
+
+        window.localStorage.setItem('currentColor', currentColor.toString());
+        window.localStorage.setItem('shadeTwo', shadeTwo.toString());
+        window.localStorage.setItem('shadeThree', shadeThree.toString());
+        if (currentColor[2] > 70) {
+          window.localStorage.setItem('textColor', 'black');
+        } else {
+          window.localStorage.setItem('textColor', '#fff');
+        }
+
+        document
+          .querySelector(':root')
+          .style.setProperty('--mainColor', currentColor.toString());
+        document
+          .querySelector(':root')
+          .style.setProperty('--shadeTwo', shadeTwo.toString());
+        document
+          .querySelector(':root')
+          .style.setProperty('--shadeThree', shadeThree.toString());
+        document
+          .querySelector(':root')
+          .style.setProperty(
+            '--textColor',
+            window.localStorage.getItem('textColor')
+          );
+      });
+    </script>
+  </body>
+</html>
