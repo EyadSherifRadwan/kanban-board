@@ -22,6 +22,11 @@
       rel="stylesheet"
     />
 
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="assets/styles/app.css" />
     <link rel="stylesheet" href="assets/styles/style.css" />
 
@@ -36,6 +41,26 @@
   <body>
     <main class="main-main"></main>
     <script>
+      // updating the colors
+      const currentColor = window.localStorage.getItem('currentColor');
+
+      if (currentColor) {
+        const h = window.localStorage.getItem('h');
+        const s = window.localStorage.getItem('s');
+        const l = window.localStorage.getItem('l');
+        const a = window.localStorage.getItem('a');
+        const textColor = window.localStorage.getItem('textColor');
+
+        document.querySelector(':root').style.setProperty('--h', h);
+        document.querySelector(':root').style.setProperty('--s', s);
+        document.querySelector(':root').style.setProperty('--l', l);
+        document.querySelector(':root').style.setProperty('--a', a);
+        document
+          .querySelector(':root')
+          .style.setProperty('--textColor', textColor);
+      }
+
+      // redering the main html code
       if (window.localStorage.getItem('mainInnerHTML')) {
         document.body.innerHTML = `
         <div id="color-picker">
@@ -48,6 +73,13 @@
           window.localStorage.getItem('mainInnerHTML');
       } else {
         document.body.innerHTML = `
+        <button class="menu-btn">
+          <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+
+
         <div id="color-picker">
           <div class="color-picker"></div>
         </div>
@@ -89,84 +121,5 @@
       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
-
-    <script>
-      const pickr = Pickr.create({
-        el: '.color-picker',
-        theme: 'nano', // or 'monolith', or 'nano'
-
-        swatches: [
-          'rgba(244, 67, 54, 1)',
-          'rgba(233, 30, 99, 0.95)',
-          'rgba(156, 39, 176, 0.9)',
-          'rgba(103, 58, 183, 0.85)',
-          'rgba(63, 81, 181, 0.8)',
-          'rgba(33, 150, 243, 0.75)',
-          'rgba(3, 169, 244, 0.7)',
-          'rgba(0, 188, 212, 0.7)',
-          'rgba(0, 150, 136, 0.75)',
-          'rgba(76, 175, 80, 0.8)',
-          'rgba(139, 195, 74, 0.85)',
-          'rgba(205, 220, 57, 0.9)',
-          'rgba(255, 235, 59, 0.95)',
-          'rgba(255, 193, 7, 1)',
-        ],
-
-        components: {
-          // Main components
-          preview: true,
-          opacity: true,
-          hue: true,
-
-          // Input / output Options
-          interaction: {
-            hex: false,
-            rgba: false,
-            hsla: false,
-            hsva: false,
-            cmyk: false,
-            input: true,
-            clear: false,
-            save: true,
-          },
-        },
-      });
-
-      pickr.on('change', (...args) => {
-        const currentColor = args[0].toHSLA();
-        const shadeOne = args[0].toHSLA();
-        const shadeTwo = args[0].toHSLA();
-        const shadeThree = args[0].toHSLA();
-        const textColor = args[0].toHSLA();
-        shadeOne.splice(2, 1, currentColor[2] - 3);
-        shadeTwo.splice(2, 1, currentColor[2] - 6);
-        shadeThree.splice(2, 1, currentColor[2] - 9);
-
-        window.localStorage.setItem('currentColor', currentColor.toString());
-        window.localStorage.setItem('shadeTwo', shadeTwo.toString());
-        window.localStorage.setItem('shadeThree', shadeThree.toString());
-        if (currentColor[2] > 70) {
-          window.localStorage.setItem('textColor', 'black');
-        } else {
-          window.localStorage.setItem('textColor', '#fff');
-        }
-
-        document
-          .querySelector(':root')
-          .style.setProperty('--mainColor', currentColor.toString());
-        document
-          .querySelector(':root')
-          .style.setProperty('--shadeTwo', shadeTwo.toString());
-        document
-          .querySelector(':root')
-          .style.setProperty('--shadeThree', shadeThree.toString());
-        document
-          .querySelector(':root')
-          .style.setProperty(
-            '--textColor',
-            window.localStorage.getItem('textColor')
-          );
-      });
-    </script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 li {
-  transition: all 0.2s;
+  transition: all 0.16s;
 }
 
 .dragged {
@@ -11,21 +11,13 @@ li {
   background-color: var(--shadeThree);
 }
 
-.dragged.target {
-  padding-bottom: 0.8rem;
-  background-color: var(--mainColor);
-}
-
-.target:not(.dragged):not(:has(+ li.dragged)) > input {
+.target:not(.dragged):not(:has(+ .dragged)) > input,
+.target:not(.dragged):not(:has(+ .dragged)) {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.target:not(.dragged) + li:not(.dragged) > input {
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-}
-
+.target:not(.dragged) + li:not(.dragged) > input,
 .target:not(.dragged) + li:not(.dragged) > button {
   border-top-right-radius: 0;
   border-top-left-radius: 0;

@@ -5,15 +5,20 @@
 }
 
 :root {
-  --tint-4: hsl(168, 100%, 52%);
-  --tint-3: hsl(168, 100%, 47%);
-  --tint-2: hsl(168, 100%, 38%);
-  --tint-1: hsl(168, 100%, 32%);
-  --mainColor: hsl(168, 100%, 29%);
-  --shadeOne: hsl(168, 100%, 26%);
-  --shadeTwo: hsl(168, 100%, 23%);
-  --shadeThree: hsl(168, 100%, 17%);
-  --shadeFour: hsl(168, 100%, 12%);
+  --h: 168;
+  --s: 100%;
+  --l: 29%;
+  --a: 1;
+
+  --tintFour: hsla(var(--h), var(--s), calc(var(--l) + 3%), var(--a));
+  --tintThree: hsla(var(--h), var(--s), calc(var(--l) + 3%), var(--a));
+  --tintTwo: hsla(var(--h), var(--s), calc(var(--l) + 3%), var(--a));
+  --tintOne: hsla(var(--h), var(--s), calc(var(--l) + 3%), var(--a));
+  --mainColor: hsla(var(--h), var(--s), var(--l), var(--a));
+  --shadeOne: hsla(var(--h), var(--s), calc(var(--l) - 3%), var(--a));
+  --shadeTwo: hsla(var(--h), var(--s), calc(var(--l) - 6%), var(--a));
+  --shadeThree: hsla(var(--h), var(--s), calc(var(--l) - 12%), var(--a));
+  --shadeFour: hsla(var(--h), var(--s), calc(var(--l) - 17%), var(--a));
 
   --textColor: white;
 }
@@ -23,7 +28,7 @@ html {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', 'IBM Plex Sans Arabic', sans-serif;
   line-height: 1;
   color: var(--textColor);
   position: relative;
@@ -95,9 +100,11 @@ li {
 
 .task-input {
   width: 100%;
-  padding: 0 6.8rem 0 1.2rem;
+  padding: 0 3.8rem 0 1.2rem;
   background-color: #fff;
   color: black;
+  font-family: inherit;
+  font-weight: 500;
 }
 
 .edit-task-icon,
@@ -123,6 +130,33 @@ li {
   right: 40px;
 }
 
+.menu-btn {
+  width: 4.1rem;
+  height: 4.1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+
+  position: absolute;
+  top: 1.5rem;
+  right: 2.5rem;
+}
+
+.menu-btn:hover {
+  background-color: var(--shadeOne);
+}
+
+.menu-icon {
+  color: var(--textColor);
+  height: 2.8rem;
+  width: 2.8rem;
+}
+
 .add-task-btn {
   transition: all 0.3s;
   color: var(--textColor);
@@ -140,6 +174,18 @@ li {
   top: 0;
   left: 0;
 }
+
+/*  */
+
+.pcr-app {
+  font-size: 150%;
+}
+
+.pcr-button {
+  --pcr-color: var(--textColor) !important;
+}
+
+/*  */
 
 /* query */
 
