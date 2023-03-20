@@ -268,3 +268,4 @@ const pickr = Pickr.create({
     'btn:clear': 'Reset',
   },
 });
+//
