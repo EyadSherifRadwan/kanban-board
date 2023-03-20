@@ -27,6 +27,32 @@
       rel="stylesheet"
     />
 
+    <script>
+      // getting the colors from the storage and reflecting them in the html if they exist
+      const root = document.querySelector(':root');
+      const colorsObj = JSON.parse(localStorage.getItem('colors'));
+
+      if (colorsObj) {
+        for (const key in colorsObj) {
+          root.style.setProperty(`--${key}`, colorsObj[key]);
+        }
+      }
+      // getting the lang from the storage and updating it
+      const html = document.querySelector('html');
+      const lang = localStorage.getItem('lang');
+
+      if (lang === 'ar') {
+        html.setAttribute('dir', 'rtl');
+        html.setAttribute('lang', 'ar');
+      } else if (lang === 'en') {
+        html.setAttribute('dir', 'ltr');
+        html.setAttribute('lang', 'en');
+      } else {
+        html.setAttribute('dir', 'ltr');
+        html.setAttribute('lang', 'en');
+      }
+    </script>
+
     <link rel="stylesheet" href="assets/styles/app.css" />
     <link rel="stylesheet" href="assets/styles/style.css" />
 
@@ -39,81 +65,47 @@
     />
   </head>
   <body>
-    <main class="main-main"></main>
+    <div id="color-picker">
+      <div class="color-picker"></div>
+    </div>
+
+    <div class="switch">
+      <input type="checkbox" id="langSwitch" />
+      <label for="langSwitch"></label>
+    </div>
+
+    <main>
+      <div class="column">
+        <ul id="not-started-tasks-list">
+          <li id="first-li"></li>
+          <li>
+            <button id="add-not-startded-task" class="add-task-btn"></button>
+          </li>
+        </ul>
+      </div>
+      <div class="column">
+        <ul id="in-progress-tasks-list">
+          <li id="first-li"></li>
+          <li>
+            <button id="add-in-progress-task" class="add-task-btn"></button>
+          </li>
+        </ul>
+      </div>
+      <div class="column">
+        <ul id="in-completed-list">
+          <li id="first-li"></li>
+          <li>
+            <button id="add-completed-task" class="add-task-btn"></button>
+          </li>
+        </ul>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <script>
-      // updating the colors
-      const currentColor = window.localStorage.getItem('currentColor');
-
-      if (currentColor) {
-        const h = window.localStorage.getItem('h');
-        const s = window.localStorage.getItem('s');
-        const l = window.localStorage.getItem('l');
-        const a = window.localStorage.getItem('a');
-        const textColor = window.localStorage.getItem('textColor');
-
-        document.querySelector(':root').style.setProperty('--h', h);
-        document.querySelector(':root').style.setProperty('--s', s);
-        document.querySelector(':root').style.setProperty('--l', l);
-        document.querySelector(':root').style.setProperty('--a', a);
-        document
-          .querySelector(':root')
-          .style.setProperty('--textColor', textColor);
-      }
-
-      // redering the main html code
-      if (window.localStorage.getItem('mainInnerHTML')) {
-        document.body.innerHTML = `
-        <div id="color-picker">
-          <div class="color-picker"></div>
-        </div>
-
-        <main></main>
-        `;
-        document.querySelector('main').innerHTML =
-          window.localStorage.getItem('mainInnerHTML');
-      } else {
-        document.body.innerHTML = `
-
-        <div id="color-picker">
-          <div class="color-picker"></div>
-        </div>
-          
-        <main>
-          <div class="column">
-            <h2>Not Started</h2>
-            <ul id="not-started-tasks-list">
-              <li id="first-li"></li>
-              <li>
-                <button id="add-not-startded-task" class="add-task-btn">
-                  + Add
-                  </button>
-                </li>
-            </ul>
-          </div>
-          <div class="column">
-            <h2>In Progress</h2>
-            <ul id="in-progress-tasks-list">
-              <li id="first-li"></li>
-              <li>
-                <button id="add-in-progress-task" class="add-task-btn">
-                  + Add
-                  </button>
-              </li>
-            </ul>
-            </div>
-            <div class="column">
-              <h2>Completed</h2>
-              <ul id="in-completed-list">
-                <li id="first-li"></li>
-                <li>
-                  <button id="add-completed-task" class="add-task-btn">+ Add</button>
-                </li>
-              </ul>
-            </div>
-          </main>
-                      `;
+      if (lang === 'ar') {
+        document.querySelector('input[type="checkbox"]').click();
       }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
   </body>
 </html>

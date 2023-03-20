@@ -51,6 +51,10 @@ main {
   display: none;
 }
 
+.invisible {
+  display: none;
+}
+
 /*  */
 
 main {
@@ -68,10 +72,27 @@ main {
   flex-direction: column;
 }
 
-h2 {
+.column::before {
   font-size: 2.4rem;
   font-weight: 400;
 }
+
+.column:has(#not-started-tasks-list)::before {
+  content: 'Not started';
+}
+
+.column:has(#in-progress-tasks-list)::before {
+  content: 'In Progress';
+}
+
+.column:has(#add-completed-task)::before {
+  content: 'Completed';
+}
+
+/* h2 {
+  font-size: 2.4rem;
+  font-weight: 400;
+} */
 
 ul {
   list-style: none;
@@ -157,6 +178,10 @@ li {
   width: 2.8rem;
 }
 
+.add-task-btn::before {
+  content: 'Add +';
+}
+
 .add-task-btn {
   transition: all 0.3s;
   color: var(--textColor);
@@ -202,5 +227,9 @@ li {
   }
   .up-down-icon {
     display: block;
+  }
+  #color-picker {
+    left: auto;
+    right: 0;
   }
 }
