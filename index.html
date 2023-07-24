@@ -2,75 +2,72 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
     <title>Kanban Board</title>
 
     <script
       type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script
       nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet" />
 
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet" />
 
     <script>
-      // getting the colors from the storage and reflecting them in the html if they exist
-      const root = document.querySelector(':root');
-      const colorsObj = JSON.parse(localStorage.getItem('colors'));
-
-      if (colorsObj) {
-        for (const key in colorsObj) {
-          root.style.setProperty(`--${key}`, colorsObj[key]);
-        }
-      }
       // getting the lang from the storage and updating it
-      const html = document.querySelector('html');
-      const lang = localStorage.getItem('lang');
+      const html = document.querySelector("html");
+      const lang = localStorage.getItem("lang");
 
-      if (lang === 'ar') {
-        html.setAttribute('dir', 'rtl');
-        html.setAttribute('lang', 'ar');
-      } else if (lang === 'en') {
-        html.setAttribute('dir', 'ltr');
-        html.setAttribute('lang', 'en');
+      if (lang === "ar") {
+        html.setAttribute("dir", "rtl");
+        html.setAttribute("lang", "ar");
+      } else if (lang === "en") {
+        html.setAttribute("dir", "ltr");
+        html.setAttribute("lang", "en");
       } else {
-        html.setAttribute('dir', 'ltr');
-        html.setAttribute('lang', 'en');
+        html.setAttribute("dir", "ltr");
+        html.setAttribute("lang", "en");
       }
     </script>
 
-    <link rel="stylesheet" href="assets/styles/app.css" />
-    <link rel="stylesheet" href="assets/styles/style.css" />
-
-    <script src="assets/scripts/vendor.js" defer></script>
-    <script src="assets/scripts/app.js" defer></script>
-
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"
-    />
+      href="assets/styles/app.css" />
+    <link
+      rel="stylesheet"
+      href="assets/styles/style.css" />
+
+    <script
+      src="assets/scripts/vendor.js"
+      defer></script>
+    <script
+      src="assets/scripts/app.js"
+      defer></script>
   </head>
   <body>
-    <div id="color-picker">
-      <div class="color-picker"></div>
-    </div>
-
     <div class="switch">
-      <input type="checkbox" id="langSwitch" />
+      <input
+        type="checkbox"
+        id="langSwitch" />
       <label for="langSwitch"></label>
     </div>
 
@@ -79,7 +76,9 @@
         <ul id="not-started-tasks-list">
           <li id="first-li"></li>
           <li>
-            <button id="add-not-startded-task" class="add-task-btn"></button>
+            <button
+              id="add-not-startded-task"
+              class="add-task-btn"></button>
           </li>
         </ul>
       </div>
@@ -87,7 +86,9 @@
         <ul id="in-progress-tasks-list">
           <li id="first-li"></li>
           <li>
-            <button id="add-in-progress-task" class="add-task-btn"></button>
+            <button
+              id="add-in-progress-task"
+              class="add-task-btn"></button>
           </li>
         </ul>
       </div>
@@ -95,15 +96,16 @@
         <ul id="in-completed-list">
           <li id="first-li"></li>
           <li>
-            <button id="add-completed-task" class="add-task-btn"></button>
+            <button
+              id="add-completed-task"
+              class="add-task-btn"></button>
           </li>
         </ul>
       </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <script>
-      if (lang === 'ar') {
+      if (lang === "ar") {
         document.querySelector('input[type="checkbox"]').click();
       }
     </script>

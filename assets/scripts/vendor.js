@@ -1,13 +1,13 @@
-let currentColor = localStorage.getItem('colors');
+let currentColor = localStorage.getItem("colors");
 if (currentColor) {
-  currentColor = JSON.parse(currentColor)['currentColor'];
+  currentColor = JSON.parse(currentColor)["currentColor"];
 } else {
-  currentColor = '#009476';
+  currentColor = "#009476";
 }
 
-const allLists = [...document.querySelectorAll('ul')];
-const allTasks = [...document.querySelectorAll('li:has(input)')];
-const allAddBtns = [...document.querySelectorAll('li button')];
+const allLists = [...document.querySelectorAll("ul")];
+const allTasks = [...document.querySelectorAll("li:has(input)")];
+const allAddBtns = [...document.querySelectorAll("li button")];
 
 let logTasks = [[], [], []];
 
@@ -15,19 +15,19 @@ function updateStorage() {
   logTasks = [[], [], []];
 
   allLists.forEach((list, listIndex) => {
-    list.querySelectorAll('li:has(input)').forEach((task) => {
+    list.querySelectorAll("li:has(input)").forEach((task) => {
       logTasks[listIndex].push({
-        textContent: task.querySelector('input').value,
+        textContent: task.querySelector("input").value,
       });
     });
   });
 
-  localStorage.setItem('tasks', JSON.stringify(logTasks));
+  localStorage.setItem("tasks", JSON.stringify(logTasks));
 }
 
 const addTask = (btn) => {
   // create the element and append it
-  const newTask = document.createElement('li');
+  const newTask = document.createElement("li");
   newTask.innerHTML = `
   <input type="text" class="task-input" />
   <svg class="delete-task-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -37,8 +37,8 @@ const addTask = (btn) => {
   <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
   </svg>
   `;
-  btn.closest('li').insertAdjacentElement('beforebegin', newTask);
-  newTask.querySelector('input').focus();
+  btn.closest("li").insertAdjacentElement("beforebegin", newTask);
+  newTask.querySelector("input").focus();
 
   // updating the storage
   updateStorage();
@@ -48,33 +48,33 @@ const addTask = (btn) => {
 };
 
 const hideIcons = () => {
-  const icons = document.querySelectorAll('svg');
+  const icons = document.querySelectorAll("svg");
   icons.forEach((icon) => {
-    icon.setAttribute('id', 'invisible');
+    icon.setAttribute("id", "invisible");
   });
 };
 
 const showIcons = () => {
-  const icons = document.querySelectorAll('svg');
+  const icons = document.querySelectorAll("svg");
   icons.forEach((icon) => {
-    icon.removeAttribute('id');
+    icon.removeAttribute("id");
   });
 };
 
 function addEventListeners(task) {
-  const inputField = task.querySelector('input');
-  const deleteBtn = task.querySelector('.delete-task-icon');
-  const upDownBtn = task.querySelector('.up-down-icon');
+  const inputField = task.querySelector("input");
+  const deleteBtn = task.querySelector(".delete-task-icon");
+  const upDownBtn = task.querySelector(".up-down-icon");
 
   // handlres
   const saveTask = () => {
     updateStorage();
 
     inputField.blur();
-    inputField.setAttribute('readonly', '');
-    inputField.style.cursor = 'move';
-    task.setAttribute('draggable', 'true');
-    inputField.addEventListener('click', editTaskHandler);
+    inputField.setAttribute("readonly", "");
+    inputField.style.cursor = "move";
+    task.setAttribute("draggable", "true");
+    inputField.addEventListener("click", editTaskHandler);
   };
 
   const onFocusOutHandler = () => {
@@ -82,7 +82,7 @@ function addEventListeners(task) {
   };
 
   const saveTaskHandler = (e) => {
-    if (e.code === 'Enter') {
+    if (e.code === "Enter") {
       saveTask();
     }
   };
@@ -96,33 +96,33 @@ function addEventListeners(task) {
   }
 
   const editTaskHandler = () => {
-    task.removeEventListener('click', editTaskHandler);
-    inputField.removeAttribute('readonly');
+    task.removeEventListener("click", editTaskHandler);
+    inputField.removeAttribute("readonly");
     inputField.focus();
-    inputField.style.cursor = 'auto';
-    task.removeAttribute('draggable');
+    inputField.style.cursor = "auto";
+    task.removeAttribute("draggable");
   };
 
   const dragStartHandler = () => {
     hideIcons();
-    task.classList.add('dragged');
+    task.classList.add("dragged");
   };
 
   const dragEndHandler = (e) => {
-    const dragged = document.querySelector('.dragged');
-    const target = document.querySelector('.target:not(:has(button))');
-    const targetHasBtn = document.querySelector('.target:has(button)');
+    const dragged = document.querySelector(".dragged");
+    const target = document.querySelector(".target:not(:has(button))");
+    const targetHasBtn = document.querySelector(".target:has(button)");
 
     if (target) {
-      target.insertAdjacentElement('afterend', dragged);
-      target.classList.remove('target');
-      dragged.classList.remove('dragged');
+      target.insertAdjacentElement("afterend", dragged);
+      target.classList.remove("target");
+      dragged.classList.remove("dragged");
     } else if (targetHasBtn) {
-      targetHasBtn.insertAdjacentElement('beforebegin', dragged);
-      targetHasBtn.classList.remove('target');
-      dragged.classList.remove('dragged');
+      targetHasBtn.insertAdjacentElement("beforebegin", dragged);
+      targetHasBtn.classList.remove("target");
+      dragged.classList.remove("dragged");
     } else {
-      task.classList.remove('dragged');
+      task.classList.remove("dragged");
       inputField.blur();
     }
     showIcons();
@@ -133,55 +133,55 @@ function addEventListeners(task) {
 
   const mobileDragStartHandler = () => {
     hideIcons();
-    task.classList.add('dragged');
-    document.addEventListener('touchstart', touchStartHandler);
-    document.addEventListener('touchend', touchEndHandler);
+    task.classList.add("dragged");
+    document.addEventListener("touchstart", touchStartHandler);
+    document.addEventListener("touchend", touchEndHandler);
     allLists.forEach((list) => {
-      list.querySelectorAll('li input').forEach((input) => {
-        input.setAttribute('disabled', '');
-        list.querySelector('li button').setAttribute('disabled', '');
+      list.querySelectorAll("li input").forEach((input) => {
+        input.setAttribute("disabled", "");
+        list.querySelector("li button").setAttribute("disabled", "");
       });
     });
     allLists.forEach((list) => {
       list
-        .querySelectorAll('li:has(input):not(.dragged)')
+        .querySelectorAll("li:has(input):not(.dragged)")
         .forEach((task) => {});
     });
   };
 
   const touchStartHandler = (e) => {
-    const targetTask = e.target.closest('li');
+    const targetTask = e.target.closest("li");
     if (targetTask) {
-      targetTask.classList.add('target');
+      targetTask.classList.add("target");
     }
   };
 
   const touchEndHandler = (e) => {
-    const targetTask = e.target.closest('li:has(input)');
-    const targetButton = e.target.closest('li:has(button)');
+    const targetTask = e.target.closest("li:has(input)");
+    const targetButton = e.target.closest("li:has(button)");
 
     // const targetTask = document.querySelector('.target');
-    const dragged = document.querySelector('.dragged');
+    const dragged = document.querySelector(".dragged");
     if (dragged && targetTask) {
-      targetTask.insertAdjacentElement('afterend', dragged);
-      targetTask.classList.remove('target');
-      dragged.classList.remove('dragged');
+      targetTask.insertAdjacentElement("afterend", dragged);
+      targetTask.classList.remove("target");
+      dragged.classList.remove("dragged");
     } else if (dragged && targetButton) {
-      targetButton.insertAdjacentElement('beforebegin', dragged);
-      targetButton.classList.remove('target');
-      dragged.classList.remove('dragged');
+      targetButton.insertAdjacentElement("beforebegin", dragged);
+      targetButton.classList.remove("target");
+      dragged.classList.remove("dragged");
     } else if (dragged) {
-      dragged.classList.remove('dragged');
+      dragged.classList.remove("dragged");
     }
 
     showIcons();
 
-    document.removeEventListener('touchstart', touchStartHandler);
-    document.removeEventListener('touchend', touchEndHandler);
+    document.removeEventListener("touchstart", touchStartHandler);
+    document.removeEventListener("touchend", touchEndHandler);
 
     allLists.forEach((list) => {
-      list.querySelectorAll('li input').forEach((input) => {
-        input.removeAttribute('disabled');
+      list.querySelectorAll("li input").forEach((input) => {
+        input.removeAttribute("disabled");
       });
     });
   };
@@ -189,83 +189,34 @@ function addEventListeners(task) {
   // event listeners
 
   // when focusing out of the task, when pressing enter --> the task will be saved
-  inputField.addEventListener('focusout', onFocusOutHandler);
-  inputField.addEventListener('keypress', saveTaskHandler);
+  inputField.addEventListener("focusout", onFocusOutHandler);
+  inputField.addEventListener("keypress", saveTaskHandler);
 
-  inputField.addEventListener('click', editTaskHandler);
-  deleteBtn.addEventListener('click', deleteTaskHandler);
+  inputField.addEventListener("click", editTaskHandler);
+  deleteBtn.addEventListener("click", deleteTaskHandler);
 
   // drag and drop for mobile
 
-  upDownBtn.addEventListener('click', mobileDragStartHandler);
+  upDownBtn.addEventListener("click", mobileDragStartHandler);
 
   // drag and drop
-  task.addEventListener('dragstart', dragStartHandler);
-  task.addEventListener('dragend', dragEndHandler);
+  task.addEventListener("dragstart", dragStartHandler);
+  task.addEventListener("dragend", dragEndHandler);
 }
 
 allLists.forEach((list) => {
-  list.addEventListener('dragover', (e) => {
+  list.addEventListener("dragover", (e) => {
     e.preventDefault();
-    const target = e.target.closest('li');
+    const target = e.target.closest("li");
     if (target) {
-      target.classList.add('target');
+      target.classList.add("target");
     }
   });
 
-  list.addEventListener('dragleave', () => {
-    const listItems = [...document.querySelectorAll('li')];
+  list.addEventListener("dragleave", () => {
+    const listItems = [...document.querySelectorAll("li")];
     listItems.forEach((listItem) => {
-      listItem.classList.remove('target');
+      listItem.classList.remove("target");
     });
   });
 });
-
-// adding the color picker
-const pickr = Pickr.create({
-  el: '.color-picker',
-  theme: 'nano', // or 'monolith', or 'nano'
-
-  default: currentColor,
-
-  swatches: [
-    'rgba(244, 67, 54, 1)',
-    'rgba(233, 30, 99, 0.95)',
-    'rgba(156, 39, 176, 0.9)',
-    'rgba(103, 58, 183, 0.85)',
-    'rgba(63, 81, 181, 0.8)',
-    'rgba(33, 150, 243, 0.75)',
-    'rgba(3, 169, 244, 0.7)',
-    'rgba(0, 188, 212, 0.7)',
-    'rgba(0, 150, 136, 0.75)',
-    'rgba(76, 175, 80, 0.8)',
-    'rgba(139, 195, 74, 0.85)',
-    'rgba(205, 220, 57, 0.9)',
-    'rgba(255, 235, 59, 0.95)',
-    'rgba(255, 193, 7, 1)',
-  ],
-
-  components: {
-    // Main components
-    preview: true,
-    opacity: true,
-    hue: true,
-
-    // Input / output Options
-    interaction: {
-      hex: false,
-      rgba: false,
-      hsla: false,
-      hsva: false,
-      cmyk: false,
-      input: true,
-      clear: true,
-      save: false,
-    },
-  },
-
-  i18n: {
-    'btn:clear': 'Reset',
-  },
-});
-//

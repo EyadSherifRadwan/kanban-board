@@ -1,6 +1,6 @@
 // adding eventlisteners on the addBtns
 allAddBtns.forEach((btn) => {
-  btn.addEventListener('click', addTask.bind(null, btn));
+  btn.addEventListener("click", addTask.bind(null, btn));
 });
 
 // getting tasks from lcoal storage and rendering it in the dom
@@ -11,7 +11,7 @@ if (localStorage.tasks) {
     logList.forEach((task) => {
       const textContent = task.textContent;
 
-      domTask = document.createElement('li');
+      domTask = document.createElement("li");
       domTask.innerHTML = `
         <input type="text" class="task-input" style="cursor:move" readonly />
         <svg class="delete-task-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -21,11 +21,11 @@ if (localStorage.tasks) {
         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
         </svg>
         `;
-      domTask.querySelector('input').value = textContent;
-      domTask.setAttribute('draggable', 'true');
+      domTask.querySelector("input").value = textContent;
+      domTask.setAttribute("draggable", "true");
 
       currentList.lastElementChild.insertAdjacentElement(
-        'beforebegin',
+        "beforebegin",
         domTask
       );
 
@@ -41,9 +41,9 @@ const onColorChangeHandler = (...args) => {
   let textColor;
 
   if (currentColor[2] > 70) {
-    textColor = 'black';
+    textColor = "black";
   } else {
-    textColor = 'white';
+    textColor = "white";
   }
 
   const colorsObj = {
@@ -61,7 +61,7 @@ const onColorChangeHandler = (...args) => {
   }
 
   // updating all the current color values in the storage in hsla() form
-  window.localStorage.setItem('colors', JSON.stringify(colorsObj));
+  window.localStorage.setItem("colors", JSON.stringify(colorsObj));
 };
 
 const onColorsResetHandler = () => {
@@ -71,32 +71,26 @@ const onColorsResetHandler = () => {
   }
 
   // removing all the currentcColor values from the storage
-  window.localStorage.removeItem('colors');
+  window.localStorage.removeItem("colors");
 };
 
-// every time you change the color in the color picker this code will fire up
-pickr.on('change', onColorChangeHandler);
-
-// every time you click the reset button this code will fire up
-pickr.on('clear', onColorsResetHandler);
-
 //
-const langSwitch = document.querySelector('#langSwitch');
+const langSwitch = document.querySelector("#langSwitch");
 
-langSwitch.addEventListener('change', () => {
+langSwitch.addEventListener("change", () => {
   if (langSwitch.checked) {
     // Switch to Arabic
-    html.setAttribute('lang', 'ar');
-    html.setAttribute('dir', 'rtl');
+    html.setAttribute("lang", "ar");
+    html.setAttribute("dir", "rtl");
 
     // Save the lang in the storage
-    localStorage.setItem('lang', 'ar');
+    localStorage.setItem("lang", "ar");
   } else {
     // Switch to English
-    html.setAttribute('lang', 'en');
-    html.setAttribute('dir', 'ltr');
+    html.setAttribute("lang", "en");
+    html.setAttribute("dir", "ltr");
 
     // Save the lang in the storage
-    localStorage.setItem('lang', 'en');
+    localStorage.setItem("lang", "en");
   }
 });
