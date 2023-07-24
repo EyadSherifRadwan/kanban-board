@@ -34,46 +34,6 @@ if (localStorage.tasks) {
   });
 }
 
-// adding event listeners on the color picker
-const onColorChangeHandler = (...args) => {
-  const currentColor = args[0].toHSLA();
-  const currentColorHEX = args[0].toHEXA().toString();
-  let textColor;
-
-  if (currentColor[2] > 70) {
-    textColor = "black";
-  } else {
-    textColor = "white";
-  }
-
-  const colorsObj = {
-    currentColor: currentColorHEX,
-    textColor: textColor,
-    h: Math.round(currentColor[0]),
-    s: `${Math.round(currentColor[1])}%`,
-    l: `${Math.round(currentColor[2])}%`,
-    a: currentColor[3],
-  };
-
-  // updating the current color in the dom so it gets relfected in the css
-  for (const key in colorsObj) {
-    root.style.setProperty(`--${key}`, colorsObj[key]);
-  }
-
-  // updating all the current color values in the storage in hsla() form
-  window.localStorage.setItem("colors", JSON.stringify(colorsObj));
-};
-
-const onColorsResetHandler = () => {
-  // removing all the currentColor values from the dom
-  for (const key in colorsObj) {
-    root.style.removeProperty(`--${key}`);
-  }
-
-  // removing all the currentcColor values from the storage
-  window.localStorage.removeItem("colors");
-};
-
 //
 const langSwitch = document.querySelector("#langSwitch");
 
