@@ -1,12 +1,12 @@
-// adding eventlisteners on the addBtns
-allAddBtns.forEach((btn) => {
-  btn.addEventListener("click", addTask.bind(null, btn));
-});
-
 // getting tasks from lcoal storage and rendering it in the dom
 if (localStorage.tasks) {
   updateDomFromStorage();
 }
+
+// adding eventlisteners on the addBtns
+allAddBtns.forEach((btn) => {
+  btn.addEventListener("click", () => addTask(btn));
+});
 
 //
 langSwitch.addEventListener("change", () => {
